@@ -1,8 +1,13 @@
+// ===== CONFIGURACIÓN DE ETAPA =====
+const ETAPA = 1; // cambia a 2 o 3 según la etapa
+const COOKIE_NAME = `votado_2026_etapa${ETAPA}`;
+// =================================
+
 document.getElementById("votingForm").addEventListener("submit", function(event) {
   event.preventDefault();
 
   // Validar si ya votó
-  if (document.cookie.includes("votado=true")) {
+  if (document.cookie.includes(COOKIE_NAME + "=true")) {
     alert("¡Gracias por participar! Tu voto ya ha sido registrado. Solo se permite un voto por persona.");
     return;
   }
@@ -30,6 +35,6 @@ document.getElementById("votingForm").addEventListener("submit", function(event)
     body: `voto=${encodeURIComponent(voto)}`
   });
 
-  document.cookie = "votado=true; max-age=" + (60 * 60 * 24 * 30); // 30 días
+  document.cookie = COOKIE_NAME + "=true; max-age=" + (60 * 60 * 24 * 30)+ "; path=/"; // 30 días
   window.location.href = "gracias.html";
 });
