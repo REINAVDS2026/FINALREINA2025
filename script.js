@@ -36,8 +36,9 @@ document.getElementById("votingForm").addEventListener("submit", function(event)
   });
 
   document.cookie = COOKIE_NAME + "=true; max-age=" + (60 * 60 * 24 * 30)+ "; path=/"; // 30 días
-  window.location.href = "gracias.html";
+  window.location.href = "cargando.html";
 });
+
 
 
 
