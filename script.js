@@ -6,6 +6,11 @@ const COOKIE_NAME = `votado_2026_etapa${ETAPA}`;
 document.getElementById("votingForm").addEventListener("submit", function(event) {
   event.preventDefault();
 
+  const boton = document.querySelector("button[type='submit']");
+
+  // Evita doble envío
+  if (boton.disabled) return;
+
   // Validar si ya votó
   if (document.cookie.includes(COOKIE_NAME + "=true")) {
     alert("¡Gracias por participar! Tu voto ya ha sido registrado. Solo se permite un voto por persona.");
@@ -14,6 +19,11 @@ document.getElementById("votingForm").addEventListener("submit", function(event)
 
   const seleccion = document.querySelector('input[name="candidata"]:checked');
   if (!seleccion) return alert("Selecciona una candidata.");
+  return;
+  }
+    // Desactivar botón inmediatamente
+  boton.disabled = true;
+  boton.innerText = "Enviando voto...";                                                    
 
   const voto = seleccion.value;
 
@@ -33,7 +43,6 @@ document.getElementById("votingForm").addEventListener("submit", function(event)
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: `voto=${encodeURIComponent(voto)}`
   })
-
   .then(response => response.json())
   .then(data => {
 
@@ -42,25 +51,19 @@ document.getElementById("votingForm").addEventListener("submit", function(event)
       document.cookie = COOKIE_NAME + "=true; max-age=" + (60 * 60 * 24 * 30) + "; path=/";
 
       window.location.href = "cargando.html";
+
     } else {
+      boton.disabled = false;
+      boton.innerText = "Enviar voto";
       alert("Error registrando el voto. Intenta nuevamente.");
     }
 
   })
   .catch(error => {
     console.error("Error:", error);
+    boton.disabled = false;
+    boton.innerText = "Enviar voto";
     alert("Error de conexión. Intenta nuevamente.");
   });
 
 });
-
-
-
-
-
-
-
-
-
-
-
