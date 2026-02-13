@@ -38,34 +38,22 @@ document.getElementById("votingForm").addEventListener("submit", function(event)
   const url = urls[Math.floor(Math.random() * urls.length)];
 
   fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: `voto=${encodeURIComponent(voto)}`
-  })
-  .then(response => response.json())
-  .then(data => {
+  method: "POST",
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: `voto=${encodeURIComponent(voto)}`
+})
+.then(() => {
 
-    if (data.status === "ok") {
+  // Guardamos cookie inmediatamente
+  document.cookie = COOKIE_NAME + "=true; max-age=" + (60 * 60 * 24 * 30) + "; path=/";
 
-      document.cookie = COOKIE_NAME + "=true; max-age=" + (60 * 60 * 24 * 30) + "; path=/";
+  // Redirigimos a cargando
+  window.location.href = "cargando.html";
 
-      window.location.href = "cargando.html";
-
-    } else {
-      boton.disabled = false;
-      boton.innerText = "Enviar voto";
-      alert("Error registrando el voto. Intenta nuevamente.");
-    }
-
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    boton.disabled = false;
-    boton.innerText = "Enviar voto";
-    alert("Error de conexión. Intenta nuevamente.");
-  });
-
+})
+.catch(error => {
+  console.error("Error:", error);
+  boton.disabled = false;
+  boton.innerText = "Enviar voto";
+  alert("Error de conexión. Intenta nuevamente.");
 });
-
-
-
