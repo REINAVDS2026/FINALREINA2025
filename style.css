@@ -55,3 +55,53 @@ button {
   font-size: 18px;
   cursor: pointer;
 }
+
+.sponsors-section {
+    margin-top: 60px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.titulo-sponsors {
+    margin-bottom: 30px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.piramide-sponsors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.fila {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.sponsor img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.sponsor img:hover {
+    transform: scale(1.05);
+}
+
+/* Tamaños */
+.sponsor-grande {
+    width: 320px;
+}
+
+.sponsor-mediano {
+    width: 200px;
+}
+
+.sponsor-pequeno {
+    width: 140px;
+}
